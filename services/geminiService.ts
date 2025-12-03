@@ -45,4 +45,4 @@ export const getLockedStatusMessage = async (): Promise<string> => {
       console.error("Gemini Error:", error);
       return "ACCESS DENIED";
     }
-  };
+};

@@ -1,0 +1,7 @@
+{
+  "name": "Copy of FocusBrick",
+  "description": "A digital discipline tool. Scan a physical QR code to unlock your distraction apps.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

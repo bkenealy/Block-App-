@@ -1,10 +1,14 @@
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
+// CRITICAL FIX: Use import.meta.env.VITE_GEMINI_API_KEY for Vite/Netlify
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
 
 // Safely initialize the client only if the key exists
 const getAiClient = () => {
-  if (!apiKey) return null;
+  if (!apiKey) {
+    console.warn("API Key missing! Make sure VITE_GEMINI_API_KEY is set in Netlify.");
+    return null;
+  }
   return new GoogleGenAI({ apiKey });
 };
 
@@ -38,6 +42,7 @@ export const getLockedStatusMessage = async (): Promise<string> => {
       });
       return response.text?.toUpperCase() || "SYSTEM LOCKED";
     } catch (error) {
+      console.error("Gemini Error:", error);
       return "ACCESS DENIED";
     }
   };
